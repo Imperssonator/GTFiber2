@@ -9,7 +9,7 @@ See [GTFiber 1.1](https://github.com/Imperssonator/GTFiber-Mac) for the old vers
 
 ## Installing the Standalone App
 GTFiber comes with an installer that enables users to run the program without MATLAB.
-* [Download](https://github.com/Imperssonator/GTFiber-Mac/archive/v2-new-match.zip)
+* [Download](https://github.com/Imperssonator/GTFiber2/archive/master.zip)
 the repository, run "MyAppInstaller_web (.exe for Windows, .app for Mac)" and follow the prompts.
 It will instruct you to download the Matlab Compiler Runtime, which is approximately 700MB, and is necessary to run MATLAB GUIs outside of the MATLAB environment. 
 At the end of installation, it has instructions to change or edit some system files - ignore this and continue. If there are issues, please email me at nils.persson@chbe.gatech.edu.
