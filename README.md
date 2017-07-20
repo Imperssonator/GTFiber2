@@ -14,7 +14,7 @@ At the end of installation, it has instructions to change or edit some system fi
 * Open the installed .app by double-clicking on it. Wait at least one minute, even if it appears nothing is happening on your screen. The Matlab Runtime is being loaded and does not display any message to indicate this is happening. 
 
 ## Running directly in MATLAB
-* [Download](https://github.com/Imperssonator/GTFiber-Mac/archive/v2-new-match.zip) the repository to your local machine
+* [Download](https://github.com/Imperssonator/GTFiber2/archive/master.zip) the repository to your local machine
 * Extract the repository to your MATLAB active directory
 * Open the extracted folder
 * Run `addpath(genpath(pwd))`
