@@ -16,10 +16,11 @@ At the end of installation, it has instructions to change or edit some system fi
 ## Running directly in MATLAB
 * [Download](https://github.com/Imperssonator/GTFiber-Mac/archive/v2-new-match.zip) the repository to your local machine
 * Extract the repository to your MATLAB active directory
-* Run "addpath(genpath(pwd))"
-* Run the command "GTFiber" in MATLAB while in the extracted folder
+* Open the extracted folder
+* Run `addpath(genpath(pwd))`
+* Run `GTFiber`
 * Operate the GUI by following the instructions in "Using GTFiber" below
-* Running in Matlab provides better access to the raw data. Each time Stitch Fibers is run, it will save a .mat file called "last_result" containing the "ims" structure array, which contains images from every step of processing, as well as data structures for the vectorized segments, fibers, the matching process, fiber length, width, and orientation distributions
+* Running in Matlab provides better access to the raw data and algorithms.
 
 ## Using GTFiber
 
