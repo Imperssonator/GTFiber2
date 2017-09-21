@@ -1,4 +1,4 @@
-function results = get_results(Params,imFile,nmWid)
+function [results, ims] = get_results(Params,imFile,nmWid)
 
 % Params:                                   LB      |   UB     
 % 

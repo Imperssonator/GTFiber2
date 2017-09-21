@@ -36,9 +36,9 @@ rgb = colorspace('HSL->RGB',HSL);
 % Add angle labels in degrees
 FontSize=80;
 
-rgbt1 = insertText(rgb,[-10 110],['180', char(176)],'BoxColor','black','TextColor','white','FontSize',FontSize,'BoxOpacity',0);
-rgbt2 = insertText(rgbt1,[315 110],['0', char(176)],'BoxColor','black','TextColor','white','FontSize',FontSize,'BoxOpacity',0);
-rgbt3 = insertText(rgbt2,[135 -20],['90', char(176)],'BoxColor','black','TextColor','white','FontSize',FontSize,'BoxOpacity',0);
+rgbt1 = insertText(rgb,[-10 110],['180', char(176)],'BoxColor','black','TextColor','black','FontSize',FontSize,'BoxOpacity',0);
+rgbt2 = insertText(rgbt1,[315 110],['0', char(176)],'BoxColor','black','TextColor','black','FontSize',FontSize,'BoxOpacity',0);
+rgbt3 = insertText(rgbt2,[135 -20],['90', char(176)],'BoxColor','black','TextColor','black','FontSize',FontSize,'BoxOpacity',0);
 
 Legend = cat(3,rgbt3,A);
 

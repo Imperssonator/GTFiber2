@@ -23,11 +23,20 @@ hf.Position = [390   143   500   450];
 ax = gca;
 hold(ax,'on');
 
+frames = ims.op2d.xdata ./ 1000;
+
+area_rand = area(ax,frames, ims.op2d.S_rand);
+area_rand.FaceColor = [1 0 0];
+area_rand.FaceAlpha = 0.3;
+area_im = area(ax,frames, ims.op2d.S_im);
+area_im.FaceColor = [0 0 1];
+area_im.FaceAlpha = 0.3;
+
 % Rescale data and fit from um to nm and plot
 frames = ims.op2d.xdata ./ 1000;
 fineFrames = linspace(frames(1),frames(end),500);
 BETA=[ims.op2d.Sfull; ims.op2d.decayLen / 1000];
-fitY = BETA(1)+(1-BETA(1)).*exp(-fineFrames./BETA(2));  % Use fineFrames to make figure look good
+fitY = BETA(1)+(1-BETA(1)).*exp(-fineFrames./(2*BETA(2)));  % Use fineFrames to make figure look good
 
 p1 = plot(ax,frames,ims.op2d.S_im,'ok'); %, ...
 p2 = plot(ax,fineFrames,fitY,'-b');
@@ -49,8 +58,9 @@ p2.Color = [0 0 1];
 
 htex = text('Units', 'normalized', 'Position', flpos, ...
     'BackgroundColor', [1 1 1], ...
-    'String', {['{\it\lambda}_{C}= ', num2str(BETA(2)*1000,4), ' nm'],...
-               ['{\itS}_{full}= ', num2str(BETA(1),2)]},...
+    'String', {['{\it\lambda}_{C} = ', num2str(BETA(2)*1000,4), ' nm'],...
+               ['{\itS}_{full} = ', num2str(BETA(1),2)],...
+               ['{\ita} = ', num2str(ims.op2d.a,2)]},...
     'FontSize', flfont,...
     'EdgeColor', edgedark*[1 1 1],...
     'LineWidth', edgewidth);

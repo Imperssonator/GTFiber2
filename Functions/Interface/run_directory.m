@@ -18,7 +18,8 @@ xl{1,4} = 'Average Orientation (degrees)';
 xl{1,5} = 'Fiber Length Density (1/um)';
 xl{1,6} = 'Mean Fiber Length (nm)';
 xl{1,7} = 'Mean Fiber Width (nm)';
-
+xl{1,8} = 'S2D5um';
+xl{1,9} = 'a_new';
 
 for i = 1:numIms
     
@@ -53,6 +54,9 @@ for i = 1:numIms
     xl{i+1,5} = ims.fibLengthDensity;
     xl{i+1,6} = mean(ims.FLD);
     xl{i+1,7} = mean(ims.FWD);
+    [~,place] = min(abs(ims.op2d.xdata-5000));
+    xl{i+1,8} = ims.op2d.S_im(place);
+    xl{i+1,9} = ims.op2d.a;
     
     % Save figures if specified
     if ims.settings.figSave

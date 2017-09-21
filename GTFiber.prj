@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber.prj" location="/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac" name="GTFiber" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration file="/Users/Imperssonator/Documents/MATLAB/GTFiber2-Mac/GTFiber.prj" location="/Users/Imperssonator/Documents/MATLAB/GTFiber2-Mac" name="GTFiber" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>GTFiber</param.appname>
     <param.icon />
     <param.icons />
@@ -11,7 +11,7 @@
     <param.description />
     <param.screenshot>${PROJECT_ROOT}/my splash.png</param.screenshot>
     <param.guid />
-    <param.installpath.string>/Georgia_Institute_of_Technology/GTFiber/</param.installpath.string>
+    <param.installpath.string>/GTFiber/</param.installpath.string>
     <param.installpath.combo>option.installpath.systemwideapp</param.installpath.combo>
     <param.logo />
     <param.install.notes>In the following directions, replace MCR_ROOT by the directory where the MATLAB Runtime is installed on the target machine.
@@ -52,10 +52,10 @@ If it is defined, set it to the concatenation of these strings:
       <param.icons />
       <param.authnamewatermark />
       <param.email />
+      <param.company />
       <param.summary />
       <param.description />
       <param.guid />
-      <param.installpath.string />
       <param.installpath.combo />
       <param.logo />
       <param.target.install.notes />
@@ -86,6 +86,7 @@ If it is defined, set it to the concatenation of these strings:
     <fileset.depfun>
       <file>${PROJECT_ROOT}/Functions/Analysis/FiberLengths.m</file>
       <file>${PROJECT_ROOT}/Functions/Analysis/FiberWidths.m</file>
+      <file>${PROJECT_ROOT}/Functions/Analysis/Persist_Len.m</file>
       <file>${PROJECT_ROOT}/Functions/Analysis/calc_orient_dist.m</file>
       <file>${PROJECT_ROOT}/Functions/Analysis/op2d_vec.m</file>
       <file>${PROJECT_ROOT}/Functions/ImageProcessing/CleanSkeleton.m</file>
@@ -156,10 +157,10 @@ If it is defined, set it to the concatenation of these strings:
       <file>${PROJECT_ROOT}/GTFiber.fig</file>
     </fileset.depfun>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="GTFiber.app" optional="false">/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber/for_testing/GTFiber.app</file>
-      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="run_GTFiber.sh" optional="false">/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber/for_testing/run_GTFiber.sh</file>
-      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="splash.png" optional="false">/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber/for_testing/splash.png</file>
-      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="readme.txt" optional="true">/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber/for_testing/readme.txt</file>
+      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="run_GTFiber.sh" optional="false">/Users/Imperssonator/Documents/MATLAB/GTFiber2-Mac/GTFiber/for_testing/run_GTFiber.sh</file>
+      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="GTFiber.app" optional="false">/Users/Imperssonator/Documents/MATLAB/GTFiber2-Mac/GTFiber/for_testing/GTFiber.app</file>
+      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="splash.png" optional="false">/Users/Imperssonator/Documents/MATLAB/GTFiber2-Mac/GTFiber/for_testing/splash.png</file>
+      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="readme.txt" optional="true">/Users/Imperssonator/Documents/MATLAB/GTFiber2-Mac/GTFiber/for_testing/readme.txt</file>
     </build-deliverables>
     <workflow />
     <matlab>
