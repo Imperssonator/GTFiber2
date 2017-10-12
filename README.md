@@ -5,6 +5,10 @@ This is the public-facing repository for GTFiber 2.0. GTFiber is an open source 
 
 See [GTFiber 1.1](https://github.com/Imperssonator/GTFiber-Mac) for the old version that did not vectorize fibers (faster but less rigorous analysis)
 
+## Video Guides for Installation and Use
+* [Install Guide](https://youtu.be/gH3hC2kMf5o)
+* [Tutorial](https://youtu.be/wBbaC_g9jio)
+
 ## Installing the Standalone App
 GTFiber comes with an installer that enables users to run the program without MATLAB.
 * IMPORTANT FOR MAC OS SIERRA+: After downloading the repository, you must create a new folder inside the repository folder (it can be called anything, even "untitled") and move "MyAppInstaller_web" into the newly created folder. This somehow convinces Mac OS that the installer app is trustable, even though it was downloaded from the internet.
