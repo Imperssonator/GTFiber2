@@ -1,25 +1,27 @@
-function hf = plotS2D(ims,figSave)
+function [hf, Fim] = plotS2D(ims,figSave)
 
 % Hard coded figure settings that look nice
 if ispc
-    font=20;
-    flfont=16;
-    flpos=[0.6, 0.85];
+    font=16;
+    flfont=14;
+    flpos=[0.7, 0.85];
+    position = [227  413  599  569];
 else
     font=20;
     flfont=16;
     flpos=[0.6, 0.85];
+    position = [390   143   500   450];
 end
-marker = 9;
-markerline = 1.25;
-line = 2.2;
+marker = 7;
+markerline = 1;
+line = 1.25;
 lenscale = 1000;
 edgedark = 0;
 edgewidth = 0.75;
 
 % Initialize figure
 hf=figure;
-hf.Position = [390   143   500   450];
+
 ax = gca;
 hold(ax,'on');
 
@@ -45,11 +47,12 @@ p2 = plot(ax,fineFrames,fitY,'-b');
 xlabel('Frame Size (µm)');
 ylabel('{\itS}_{2D}')
 ax.FontSize = font;
+ax.XLim = [0 ceil(frames(end))];
 ax.Box = 'on';
 ax.LineWidth = 0.75;
 ax.PlotBoxAspectRatio = [1 1 1];
 ax.YLim = [0 1];
-ax.TickLength = [0.025, 0.025];
+ax.TickLength = [0.015, 0.015];
 p1.LineWidth = markerline;
 p1.MarkerSize = marker;
 p2.LineWidth = line;
@@ -64,6 +67,11 @@ htex = text('Units', 'normalized', 'Position', flpos, ...
     'FontSize', flfont,...
     'EdgeColor', edgedark*[1 1 1],...
     'LineWidth', edgewidth);
+
+hf.Position=position;
+
+F = getframe(hf);
+Fim = F.cdata;
 
 if figSave
     hgexport(hf, [ims.figSavePath, '_OP2D', '.tif'],  ...

@@ -39,8 +39,6 @@ ax.PlotBoxAspectRatio = [1 1 1];
 % Fim = F.cdata;
 % Fres = imresize(Fim,[h, w]);
 
-handles = plotGT(ax,handles,'fiber_axes');
-
 F = getframe(f1);
 Fim = F.cdata;
 
@@ -49,6 +47,7 @@ if figSave
     imwrite(Fres, [handles.ims.figSavePath, '_FiberPlot.tif']);
 end
 
+handles = plotGT(ax,handles,'fiber_axes');
 close(f1)
 
 end
