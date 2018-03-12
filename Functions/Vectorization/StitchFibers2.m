@@ -48,7 +48,7 @@ ims = calc_orient_dist(ims);
 ims = FiberLengths(ims,0);
 ims = FiberWidths(ims);
 
-% save('last_result','ims')
+save('last_result','ims')
 close(hwait)
 
 end
