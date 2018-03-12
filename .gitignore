@@ -3,3 +3,4 @@
 *.mat
 **/*.mat
 *_FiberData
+**/*.DS_Store
