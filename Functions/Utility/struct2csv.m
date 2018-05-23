@@ -43,19 +43,21 @@ sz = zeros(m,2);
 t = length(s);
 
 for rr = 1:t
-    l = '';
-    for ii = 1:m
-        sz(ii,:) = size(s(rr).(headers{ii}));   
-        if ischar(s(rr).(headers{ii}))
-            sz(ii,2) = 1;
+    if rr==1
+        l = '';
+        for ii = 1:m
+            sz(ii,:) = size(s(rr).(headers{ii}));   
+            if ischar(s(rr).(headers{ii}))
+                sz(ii,2) = 1;
+            end
+            l = [l,'"',headers{ii},'",',repmat(',',1,sz(ii,2)-1)];
+    %         whos l
         end
-        l = [l,'"',headers{ii},'",',repmat(',',1,sz(ii,2)-1)];
-        whos l
+
+        l = [l,'\n'];
+
+        fprintf(FID,l);
     end
-
-    l = [l,'\n'];
-
-    fprintf(FID,l);
 
     n = max(sz(:,1));
 

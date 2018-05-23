@@ -1,4 +1,4 @@
-function hf = ODist_plot(ims,figSave)
+function [hf, Fim] = ODist_plot(ims,figSave)
 
 % Produce the radar-style polar plot of the orientation distribution from
 % and ims structure that has had its ODist calculated with calc_orient_dist
@@ -73,6 +73,9 @@ set(hlines(outline),'Color',outerGray.*[1 1 1]);
 
 % Reposition and scale figure
 hf.Position = [600 300 400 400];
+
+F = getframe(hf);
+Fim = F.cdata;
 
 if figSave
     hgexport(hf, [ims.figSavePath, '_OD', '.tif'],  ...

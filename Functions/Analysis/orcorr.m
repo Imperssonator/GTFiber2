@@ -27,8 +27,10 @@ hh = zeros(3,numBins);
 mag = ims.settings.fiberStep_nm^2;
 
 % Iterate over all vector pairs, excluding self-pairs
+hwait=waitbar(0,'Calculating Orientation Correlation Function...');
 for i = 1:N-1
 %     disp(N-i)
+    waitbar(i/N,hwait)
     for j = i+1:N
         
         % Compute distance
