@@ -119,6 +119,7 @@ end
 % Convert to real units
 xy_nm = xy .* ims.nmPix;
 
+% Calculate curvature
 if size(xy,2)>=3
     dxy=(xy_nm(:,3:end)-xy_nm(:,1:end-2))./(2*ims.settings.fiberStep_nm);
     ddxy=(xy_nm(:,3:end)-2.*xy_nm(:,2:end-1)+xy_nm(:,1:end-2))./(ims.settings.fiberStep_nm)^2;

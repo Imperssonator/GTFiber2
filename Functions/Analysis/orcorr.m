@@ -67,4 +67,6 @@ ims.OrCorr = struct();
 ims.OrCorr.hist = hh;
 ims.OrCorr.corrLen = corr_len;
 
+close(hwait)
+
 end

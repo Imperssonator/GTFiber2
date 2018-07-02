@@ -29,7 +29,11 @@ handles=imshowGT(ims.CEDtophat,handles,'img_axes');
 waitbar(0.7,hwait,'Threshold and Clean...');
 switch settings.threshMethod
     case 1
-        ims.CEDbw = imbinarize(ims.CEDtophat,'adaptive');
+        if isfield(settings,'threshSens')
+            ims.CEDbw = imbinarize(ims.CEDtophat,'adaptive','Sensitivity',settings.threshSens);
+        else
+            ims.CEDbw = imbinarize(ims.CEDtophat,'adaptive');
+        end
     case 2
         ims.CEDbw = im2bw(ims.CEDtophat,settings.globalThresh);
 end

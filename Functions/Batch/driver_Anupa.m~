@@ -1,7 +1,7 @@
-im_dir = '~/CC/anupa/afmimagesforgtfiber/8um';
+im_dir = '~/CC/anupa/no_filt';
 results_dir = fullfile(im_dir,'res');
 blue_vec_dir = fullfile(im_dir,'img');
-nmWid = 8000;
+nmWid = 5000;
 
 if ~exist(results_dir, 'dir')
   mkdir(results_dir);
@@ -21,10 +21,9 @@ Params = struct( ...
     'nmWid', nmWid, ...
     'gaussnm', 5, ...
     'rhonm', 15, ...
-    'T', 2, ...
+    'T', 0.1, ...
     'thnm', 40, ...
     'threshMethod', 1, ...
-    'threshSens', 0.1, ...
     'globalThresh', 0.45, ...
     'noisenm', 1500, ...
     'maxBranchSizenm', 20, ...
@@ -34,15 +33,16 @@ Params = struct( ...
     'minFibLen', 0 ...
     );
 
-% Rescale parameters if nmWid is not 5000
-
 Params.gaussnm = Params.gaussnm * nmWid/5000;
 Params.rhonm = Params.rhonm * nmWid/5000;
-Params.thnm = Params.thnm * nmWid/5000;
-Params.noisenm = Params.noisenm * nmWid/5000;
-Params.maxBranchSizenm = Params.maxBranchSizenm * nmWid/5000;
-Params.stitchGap = Params.stitchGap * nmWid/5000;
-
+Params.thnm = Params.gaussnm * nmWid/5000;
+% 
+%         set(handles.gauss,'String',num2str(nmWid*5/5000));
+%         set(handles.rho,'String',num2str(nmWid*15/5000));
+%         set(handles.tophatSize,'String',num2str(nmWid*40/5000));
+%         set(handles.noiseArea,'String',num2str(nmWid*1500/5000));
+%         set(handles.maxBranchSize,'String',num2str(nmWid*60/5000));
+%         set(handles.stitchGap,'String',num2str(nmWid*60/5000));
 
 % Analyze images and save results
 
@@ -70,7 +70,7 @@ parfor i = 1:length(dd)
     
     % Save blue vectors and plot images
 %     [~, blue_im] = FiberVecPlot_stitch(struct('ims',ims),0);
-    imwrite(imclose(ims.CEDclean,strel('disk',1)),blue_file);
+    imwrite(ims.CEDclean,blue_file);
     
     [~, s2d_im] = plotS2D(ims,0);
     imwrite(s2d_im,s2d_file);
