@@ -13,6 +13,7 @@ vecList = [vecs{:}];
 ptList = [vecPts{:}];
 
 N=size(vecList,2);
+disp(N)
 
 % Make bins equal to image size + 1 in x and y directions
 % But numBins is half the number of bins (only in positive directions)
@@ -34,7 +35,6 @@ for i = 1:N-1
 %     disp(N-i)
     waitbar(i/N,hwait)
     for j = i+1:N
-        
         % Compute distance vector
         dd = ptList(:,i)-ptList(:,j);
         
@@ -53,22 +53,14 @@ for i = 1:N-1
         hh(bi,bj,2)= hh(bi,bj,1)/(hh(bi,bj,1)+1)*hh(bi,bj,2)...
                   + 1/(hh(bi,bj,1)+1)...
                     * cos(2*acos((vecList(1,i)*vecList(1,j)+vecList(2,i)*vecList(2,j))/mag));
-                
-        % Repeat for opposite distance vector
-        dd = -dd;
-        bb = round(fliplr(dd')./db) + numBins + 1;
-        bi = bb(1); bj = bb(2);
-        if bi<1; bi=1; end
-        if bj<1; bj=1; end
-        if bi>2*numBins(1)+1; bi=2*numBins(1)+1; end
-        if bj>2*numBins(2)+1; bj=2*numBins(2)+1; end
-        hh(bi,bj,1)=hh(bi,bj,1)+1;
-        hh(bi,bj,2)= hh(bi,bj,1)/(hh(bi,bj,1)+1)*hh(bi,bj,2)...
-                  + 1/(hh(bi,bj,1)+1)...
-                    * cos(2*acos((vecList(1,i)*vecList(1,j)+vecList(2,i)*vecList(2,j))/mag));
         
     end
 end
+
+% Rotate the matrix by 180 and average with itself to mirror the
+% orientations
+hh(:,:,1) = hh(:,:,1) + rot90(hh(:,:,1),2);
+hh(:,:,2) = (hh(:,:,2) + rot90(hh(:,:,2),2)) ./ 2;
 
 [X, Y] = meshgrid((-nmSize(1):db(1):nmSize(1)),(nmSize(2):-db(2):-nmSize(2)));
 hh(:,:,3) = X;
