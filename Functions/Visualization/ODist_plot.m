@@ -78,7 +78,9 @@ F = getframe(hf);
 Fim = F.cdata;
 
 if figSave
-    hgexport(hf, [ims.figSavePath, '_OD', '.tif'],  ...
+    fig_file = [ims.figSavePath, '_OD', '.tif'];
+    ensure_dir(fig_file);
+    hgexport(hf, fig_file,  ...
         hgexport('factorystyle'), 'Format', 'tiff');
     close(hf)
 end

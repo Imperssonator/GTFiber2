@@ -1,11 +1,8 @@
-im_dir = '~/CC/N2200/data/AFM/lo hi spin';
-res_dir = fullfile(im_dir,'res');
+% im_dir = '~/CC/N2200/data/AFM/lo hi spin';
+im_dir = 'Z:\N2200 Project\data\afm\lo hi spin';
 fig_dir = fullfile(im_dir,'img');
 nmWid = 10000;
 
-if ~exist(res_dir, 'dir')
-  mkdir(res_dir);
-end
 if ~exist(fig_dir, 'dir')
   mkdir(fig_dir);
 end
@@ -46,15 +43,12 @@ for i = 1:length(dd)
 
     blue_file = fullfile(fig_dir, [imName(1:end-4), '_vec.png']);           % File name for blue vector plot
     acm_file = fullfile(fig_dir, [imName(1:end-4), '_acm.png']);            % File name for angle color map
-    s2d_file = fullfile(res_dir, [imName(1:end-4), '_s2d.png']);            % Film name for S2D plot
-    orcorr_file = fullfile(res_dir, [imName(1:end-4), '_ocf2d.png']);       % File name for OrCorr plot
-    odist_file = fullfile(res_dir, [imName(1:end-4), '_OD.png']);           % File name for O Dist
-    mat_file = fullfile(im_dir, [imName(1:end-4), '_ims']);                % Save the ims structure
+    mat_file = fullfile(im_dir, [imName(1:end-4), '_ims.mat']);                % Save the ims structure
 
     % Process the image
     ims = get_ims_nogui(imFile,Params);
     ims = orcorr2d(ims);
-    save(mat_file, ims);
+    save(mat_file, 'ims');
     
     % Save blue vectors and plot images
     [hblue, blue_im] = FiberVecPlot_stitch(struct('ims',ims),0);
@@ -63,14 +57,9 @@ for i = 1:length(dd)
     [hacm, acm_im] = FiberVec_ACM(ims,0);
     imwrite(acm_im,acm_file);
     
-    [hs2d, s2d_im] = plotS2D(ims,0);
-    imwrite(s2d_im,s2d_file);
-    
-    [hod, od_im] = ODist_plot(ims,0);
-    imwrite(od_im,odist_file);
-    
-    [~, orcorr_im] = plotOrCorr2D(ims,0);
-    imwrite(orcorr_im,orcorr_file);
+    [hs2d, s2d_im] = plotS2D(ims,1);
+    [hod, od_im] = ODist_plot(ims,1);
+    [~, orcorr_im] = plotOrCorr2D(ims,1);
     
     Res(i,:) = [ims.op2d.Sfull, ...
                 ims.op2d.decayLen, ...
@@ -98,5 +87,5 @@ end
 close all
 
 dd=rmfield(dd,'folder');
-csv_path = fullfile(res_dir, 'gtfiber_results.csv');
+csv_path = fullfile(im_dir, 'gtfiber_results.csv');
 struct2csv(dd,csv_path);
