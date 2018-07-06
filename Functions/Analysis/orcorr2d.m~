@@ -1,0 +1,78 @@
+function ims = orcorr2d(ims)
+
+% Generate lists of segment vectors and one of their endpoints
+fiberXY = {ims.Fibers(:).xy_nm};
+
+vecs = cellfun(@(pts) diff(pts,1,2),fiberXY,'UniformOutput',false);
+vecPts = cellfun(@(pts) pts(:,1:end-1),fiberXY,'UniformOutput',false);
+
+vecList = [vecs{:}];
+ptList = [vecPts{:}];
+
+N=size(vecList,2);
+
+% Make bins equal to image size + 1 in x and y directions
+% But numBins is half the number of bins (only in positive directions)
+numBins = round(size(ims.gray)/2);
+db = size(ims.gray)./numBins .* ims.nmPix;
+
+% hh is a 2D histogram with bins for each pixel of the image and
+% three entries at each bin:
+% 1: number of vector pairs in that spatial bin
+% 2: <cos(2*theta)> for all vector pairs in that bin
+hh = zeros([2.*numBins+1, 2]);
+
+% pre-compute product of vector magnitudes for dot product
+mag = ims.settings.fiberStep_nm^2;
+
+% Iterate over all vector pairs, excluding self-pairs
+hwait=waitbar(0,'Calculating Orientation Correlation Array...');
+for i = 1:N-1
+%     disp(N-i)
+    waitbar(i/N,hwait)
+    for j = i+1:N
+        
+        % Compute distance vector
+        dd = ptList(:,i)-ptList(:,j);
+        
+        % Convert to bin number
+        bb = round(fliplr(dd')./db) + numBins + 1;
+        bi = bb(1); bj = bb(2);
+        if bi<1; bi=1; end;
+        if bj<1; bj=1; end;
+        if 
+        
+        % Increment histogram count
+        hh(bi,bj,1)=hh(bi,bj,1)+1;
+        
+        % Compute rolling average of angle cosine
+        hh(bi,bj,2)= hh(bi,bj,1)/(hh(bi,bj,1)+1)*hh(bi,bj,2)...
+                  + 1/(hh(bi,bj,1)+1)...
+                    * cos(2*acos((vecList(1,i)*vecList(1,j)+vecList(2,i)*vecList(2,j))/mag));
+                
+        % Store x,y distance in hh(3) and (4) in real, actual, regular
+        % cartesian coordinates (+x right, +y up)
+        dd_bin = round(dd');
+        hh(bi,bj,3) = dd_bin(1);
+        hh(bi,bj,4) = -dd_bin(2);
+                
+        % Repeat for opposite distance vector
+        dd = -dd;
+        bb = round(fliplr(dd')./db) + numBins + 1;
+        bi = bb(1); bj = bb(2);
+        hh(bi,bj,1)=hh(bi,bj,1)+1;
+        hh(bi,bj,2)= hh(bi,bj,1)/(hh(bi,bj,1)+1)*hh(bi,bj,2)...
+                  + 1/(hh(bi,bj,1)+1)...
+                    * cos(2*acos((vecList(1,i)*vecList(1,j)+vecList(2,i)*vecList(2,j))/mag));
+        dd_bin = round(dd');
+        hh(bi,bj,3) = dd_bin(1);
+        hh(bi,bj,4) = -dd_bin(2);
+        
+    end
+end
+
+ims.OrCorr2D = hh;
+
+close(hwait)
+
+end

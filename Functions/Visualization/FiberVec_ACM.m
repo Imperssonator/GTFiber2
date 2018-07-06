@@ -1,4 +1,4 @@
-function ims = FiberVec_ACM(ims,figSave)
+function [hf, Fres] = FiberVec_ACM(ims,figSave)
 
 % Plot the vectorized fibers, except with each individual segment colored
 % by its orientation. This is probably the ideal visualization for the
@@ -16,11 +16,11 @@ w = size(ims.img,2);
 h = size(ims.img,1);
 sat = 0.92;
 
-f1 = figure('Visible','on');
-f1.Position = [1 1 1+w 1+h];
-f1.Color = [0 0 0];
-f1.InvertHardcopy='off';
-ha = axes('parent',f1);
+hf = figure('Visible','on');
+hf.Position = [1 1 1+w 1+h];
+hf.Color = [0 0 0];
+hf.InvertHardcopy='off';
+ha = axes('parent',hf);
 hold on
 
 for i = 1:numFibs
@@ -53,17 +53,17 @@ ax.Visible = 'off';
 % ax.PlotBoxAspectRatio = [1 1 1];
 ax.Position = [0 0 1 1];
 
-F = getframe(f1);
+F = getframe(hf);
 Fim = F.cdata;
 Fres = imresize(Fim,[h, w]);
 
-ampos = f1.Position;
+ampos = hf.Position;
 legpos = [ampos(1)+ampos(3), ampos(2)];
 hleg = Angle_Legend(legpos);
 
 if figSave
     imwrite(Fres, [ims.figSavePath, '_AM', '.tif']);
-    close(f1)
+    close(hf)
     close(hleg)
 end
 
