@@ -24,6 +24,7 @@ Params = struct( ...
     'T', 5, ...
     'thnm', 80, ...
     'threshMethod', 1, ...
+    'globalThresh', 0.45, ...
     'noisenm', 3000, ...
     'maxBranchSizenm', 80, ...
     'fiberStep_nm', 60, ...
@@ -34,9 +35,9 @@ Params = struct( ...
 
 % Analyze images and save results
 
-Res = zeros(length(dd),6);
+Res = zeros(length(dd),5);
 
-parfor i = 1:length(dd)
+for i = 1:length(dd)
     disp('_______')
     disp([num2str(i) ' of ' num2str(length(dd))])
     imName = dd(i).name;
@@ -44,31 +45,29 @@ parfor i = 1:length(dd)
     
 
     blue_file = fullfile(fig_dir, [imName(1:end-4), '_vec.png']);           % File name for blue vector plot
-    acm_file = fullfile(fig_dir, [imName(1:end-4), '_acm.png']);
+    acm_file = fullfile(fig_dir, [imName(1:end-4), '_acm.png']);            % File name for angle color map
     s2d_file = fullfile(res_dir, [imName(1:end-4), '_s2d.png']);            % Film name for S2D plot
-    orcorr_file = fullfile(res_dir, [imName(1:end-4), '_ocf2d.png']);   % File name for OrCorr plot
+    orcorr_file = fullfile(res_dir, [imName(1:end-4), '_ocf2d.png']);       % File name for OrCorr plot
     odist_file = fullfile(res_dir, [imName(1:end-4), '_OD.png']);           % File name for O Dist
+    mat_file = fullfile(res_dir, [imName(1:end-4), '_ims']);                % Save the ims structure
 
     % Process the image
     ims = get_ims_nogui(imFile,Params);
     ims = orcorr2d(ims);
+    save(mat_file, ims);
     
     % Save blue vectors and plot images
     [hblue, blue_im] = FiberVecPlot_stitch(struct('ims',ims),0);
     imwrite(blue_im,blue_file);
-    close(hblue)
     
     [hacm, acm_im] = FiberVec_ACM(ims,0);
     imwrite(acm_im,acm_file);
-    close(hacm)
     
     [hs2d, s2d_im] = plotS2D(ims,0);
     imwrite(s2d_im,s2d_file);
-    close(hs2d)
     
     [hod, od_im] = ODist_plot(ims,0);
     imwrite(od_im,odist_file);
-    close(hod)
     
     [~, orcorr_im] = plotOrCorr2D(ims,0);
     imwrite(orcorr_im,orcorr_file);

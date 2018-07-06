@@ -45,14 +45,16 @@ for i = 1:length(dd)
     
 
     blue_file = fullfile(fig_dir, [imName(1:end-4), '_vec.png']);           % File name for blue vector plot
-    acm_file = fullfile(fig_dir, [imName(1:end-4), '_acm.png']);
+    acm_file = fullfile(fig_dir, [imName(1:end-4), '_acm.png']);            % File name for angle color map
     s2d_file = fullfile(res_dir, [imName(1:end-4), '_s2d.png']);            % Film name for S2D plot
-    orcorr_file = fullfile(res_dir, [imName(1:end-4), '_ocf2d.png']);   % File name for OrCorr plot
+    orcorr_file = fullfile(res_dir, [imName(1:end-4), '_ocf2d.png']);       % File name for OrCorr plot
     odist_file = fullfile(res_dir, [imName(1:end-4), '_OD.png']);           % File name for O Dist
+    mat_file = fullfile(im_dir, [imName(1:end-4), '_ims']);                % Save the ims structure
 
     % Process the image
     ims = get_ims_nogui(imFile,Params);
     ims = orcorr2d(ims);
+    save(mat_file, ims);
     
     % Save blue vectors and plot images
     [hblue, blue_im] = FiberVecPlot_stitch(struct('ims',ims),0);
