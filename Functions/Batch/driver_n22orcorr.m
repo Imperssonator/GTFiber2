@@ -47,6 +47,7 @@ for i = 1:length(dd)
 
     % Process the image
     ims = get_ims_nogui(imFile,Params);
+    
     ims = orcorr2d(ims);
     save(mat_file, 'ims');
     
