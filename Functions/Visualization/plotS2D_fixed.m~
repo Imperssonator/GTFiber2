@@ -9,8 +9,8 @@ if ispc
 else
     font=20;
     flfont=16;
-    flpos=[0.8, 0.93];
-    position = [390   143   700   650];
+    flpos=[0.8, 0.85];
+    position = [390   143   500   450];
 end
 marker = 7;
 markerline = 1;
@@ -27,8 +27,8 @@ hold(ax,'on');
 
 frames = ims.op2d_fixed.xdata ./ 1000;
 
+
 p1 = plot(ax,frames,ims.op2d_fixed.S_im,'ok');
-p2 = plot(frames,zeros(size(frames)),'--k');
 
 % Make things look nice
 xlabel('Frame Size (µm)');
@@ -42,7 +42,6 @@ ax.YLim = [-0.5 0.5];
 ax.TickLength = [0.015, 0.015];
 p1.LineWidth = markerline;
 p1.MarkerSize = marker;
-p2.LineWidth = line;
 % p(2).LineWidth = line; p(2).Color = [1, 0, 0];
 
 htex = text('Units', 'normalized', 'Position', flpos, ...

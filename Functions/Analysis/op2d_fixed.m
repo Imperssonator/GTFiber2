@@ -50,45 +50,11 @@ ims.fibLengthDensity = fibLengthDensity;
 [xdata, S_im] = OP2D_fixed(p_im, v_im, xMin, yMin, ...
     gridStep, procStepNum, numCellX, numCellY, 0, director);
 
-% Generate images with random fibers positioning
-randImNum=10;
-S_rand = zeros(randImNum, length(xdata));
-for l = 1:randImNum
-    xc = random('Uniform', xMin, xMax, size(xy_im));
-    yc = random('Uniform', yMin, yMax, size(xy_im));
-    angle = random('Uniform', 0, 2*pi, size(xy_im));
-    
-    [p_rand, v_rand] = arrayfun(@move_and_rotate, xy_im, xc, yc, angle, ...
-        'UniformOutput', false);
-    
-    % Unite points and vectors of all fibers
-    p_rand = [p_rand{:}];
-    v_rand = [v_rand{:}];
-    
-    % Periodic boundary conditions
-    p_rand(1,:) = mod(p_rand(1,:)-xMin, xMax-xMin) + xMin;
-    p_rand(2,:) = mod(p_rand(2,:)-yMin, yMax-yMin) + yMin;
-    
-    [~, S_rand(l,:)] = OP2D_fixed(p_rand, v_rand, ...
-        xMin, yMin, gridStep, procStepNum, numCellX, numCellY, 0, director);
-end
-% Average S_rand
-S_rand = mean(S_rand);
-nematic_frac = 1-trapz(xdata,S_rand)/trapz(xdata,S_im);
 
-
-% Fit data
-BETA = lsqnonlin(@(B) B(1)+(1-B(1)).*exp(-xdata./(2*B(2))) - S_im,...   % fitting function (should be all 0's)
-                 [0.5,1000],... % initial guess
-                 [0 1E-3],...   % lower bound
-                 [1 Inf]);      % upper bound
-
-ims.op2d_fixed = struct('Sfull',BETA(1),...
-                  'decayLen',BETA(2),...
-                  'a',nematic_frac,...
+ims.op2d_fixed = struct( ...
                   'xdata',xdata,...
                   'S_im',S_im,...
-                  'S_rand',S_rand);
+                  'S2D',mean(S_im));
 
 end
 

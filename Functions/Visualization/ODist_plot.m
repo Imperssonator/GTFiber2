@@ -10,7 +10,7 @@ end
 % Hard Coded Stuff
 % ___________________
 
-dirScale = 0.5; % what fraction of max bin should director segment length be
+dirScale = 1; % what fraction of max bin should director segment length be
 axGray = 0.84; % how light should the radial/angular axes be
 outerGray = 0.4;
 lab180scale = 1.2;
@@ -21,14 +21,15 @@ n = ims.ODist.n;
 centers_polar = ims.ODist.centers_polar;
 MeanOrient = ims.ODist.director;
 maxn = max(n);
-dirLen = dirScale*maxn;
 
 % Make polar plot with director
 hf=figure;
 ax1 = gca;
 polar(ax1, centers_polar, n, '-b');
 hold(ax1,'on')
-polar(ax1,[MeanOrient*pi/180, 0, MeanOrient*pi/180+pi],[dirLen, 0, dirLen],'-k');
+
+dirLen = dirScale*ax1.XLim(end);
+p_avg = polar(ax1,[MeanOrient*pi/180, 0, MeanOrient*pi/180+pi],[dirLen, 0, dirLen],'-k');
 
 % Fix the axis labels
 pos180 = ax1.XTick(1) * lab180scale;
@@ -53,8 +54,9 @@ end
 % Fix line widths
 hlines = findall(hf,'Type','line');
 for i = 1:length(hlines)
-set(hlines(i),'LineWidth',2);
+set(hlines(i),'LineWidth',1.5);
 end
+p_avg.LineWidth = 2;
 
 % Draw outline darker
 ymax = [];
@@ -76,12 +78,13 @@ hf.Position = [600 300 400 400];
 
 F = getframe(hf);
 Fim = F.cdata;
+alpha = uint8(ones(size(Fim(:,:,1))).*255);
+alpha(Fim(:,:,1)==240)=0;
 
 if figSave
-    fig_file = [ims.figSavePath, '_OD', '.tif'];
+    fig_file = [ims.figSavePath, '_OD', '.png'];
     ensure_dir(fig_file);
-    hgexport(hf, fig_file,  ...
-        hgexport('factorystyle'), 'Format', 'tiff');
+    imwrite(Fim,fig_file,'Alpha',alpha);
     close(hf)
 end
 

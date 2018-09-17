@@ -1,5 +1,5 @@
-% im_dir = '~/CC/N2200/data/AFM/lo hi spin';
-im_dir = 'Z:\N2200 Project\data\afm\lo hi spin';
+im_dir = '/Users/nils/CC/N2200/data/AFM/180726 N2200 Subh/png/Phase';
+% im_dir = 'Z:\N2200 Project\data\afm\lo hi spin';
 fig_dir = fullfile(im_dir,'img');
 nmWid = 10000;
 
@@ -10,7 +10,7 @@ end
 % Build directory of images
 ad=pwd;
 cd(im_dir)
-dd = dir('*.jpg');
+dd = dir('*.png');
 cd(ad);
 
 % Define parameters as you would in the GUI
@@ -32,7 +32,7 @@ Params = struct( ...
 
 % Analyze images and save results
 
-Res = zeros(length(dd),5);
+Res = zeros(length(dd),6);
 
 for i = 1:length(dd)
     disp('_______')
@@ -59,6 +59,7 @@ for i = 1:length(dd)
     imwrite(acm_im,acm_file);
     
     [hs2d, s2d_im] = plotS2D(ims,1);
+    [hs2d, s2d_im] = plotS2D_fixed(ims,1);
     [hod, od_im] = ODist_plot(ims,1);
     [~, orcorr_im] = plotOrCorr2D(ims,1);
     
@@ -66,7 +67,8 @@ for i = 1:length(dd)
                 ims.op2d.decayLen, ...
                 ims.ODist.director, ...
                 ims.fibLengthDensity, ...
-                ims.op2d.a];
+                ims.op2d.a, ...
+                ims.op2d_fixed.S2D];
     
 %     dd(i).Sfull = ims.op2d.Sfull;
 %     dd(i).decayLen = ims.op2d.decayLen;
@@ -83,6 +85,7 @@ for i = 1:length(dd)
     dd(i).avgOrient = Res(i,3);
     dd(i).lengthDensity = Res(i,4);
     dd(i).a = Res(i,5);
+    dd(i).S2D = Res(i,6);
 end
 
 close all
