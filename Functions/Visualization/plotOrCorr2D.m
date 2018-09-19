@@ -8,8 +8,8 @@ ax = axes('Parent',hf);
 hold(ax,'on')
 
 H = ims.OrCorr2D;
-X = H(:,:,3);
-Y = H(:,:,4);
+X = H(:,:,3)./1000;
+Y = H(:,:,4)./1000;
 C = H(:,:,2);
 
 colormap(LB);
@@ -18,8 +18,8 @@ cb = colorbar();
 caxis([-1, 1]);
 set(cb,'Limits',[-1,1]);
 
-xlabel('dx (nm)');
-ylabel('dy (nm)');
+xlabel('dx (µm)');
+ylabel('dy (µm)');
 ylabel(cb, '<cos(2\theta)>')
 set(ax,'FontSize',16);
 set(pc,'LineStyle','none');

@@ -52,19 +52,19 @@ for i = 1:N-1
         hh(bi,bj,1)=hh(bi,bj,1)+1;
         
         % Compute rolling average of angle cosine
-        % dot product = |A||B|cos(theta)
-        % mag = |A||B|
-        
-        cos_theta = (vecList(1,i)*vecList(1,j)+vecList(2,i)*vecList(2,j))/mag;
-        if cos_theta>1
-            % protect against non-real results
-            cos_theta=1;
-        elseif cos_theta<-1
-            cos_theta=-1;
-        end
+        dot_prod = (vecList(1,i)*vecList(1,j)+vecList(2,i)*vecList(2,j))/mag;
+        if dot_prod>1
+            dot_prod=1
+        elseif dot
         hh(bi,bj,2)= hh(bi,bj,1)/(hh(bi,bj,1)+1)*hh(bi,bj,2)...
                   + 1/(hh(bi,bj,1)+1)...
-                    * cos(2*acos(cos_theta));
+                    * cos(2*acos(dot_prod));
+                
+        if ~isreal(hh(bi,bj,2))
+            disp(bi)
+            disp(bj)
+            break
+        end
         
     end
 end
