@@ -48,7 +48,7 @@ for i = 1:length(dd)
     % Process the image
     ims = get_ims_nogui(imFile,Params);
     
-    ims = orcorr2d(ims);
+%     ims = orcorr2d(ims);
     save(mat_file, 'ims');
     
     % Save blue vectors and plot images
@@ -61,7 +61,7 @@ for i = 1:length(dd)
     [hs2d, s2d_im] = plotS2D(ims,1);
     [hs2d, s2d_im] = plotS2D_fixed(ims,1);
     [hod, od_im] = ODist_plot(ims,1);
-    [~, orcorr_im] = plotOrCorr2D(ims,1);
+%     [~, orcorr_im] = plotOrCorr2D(ims,1);
     
     Res(i,:) = [ims.op2d.Sfull, ...
                 ims.op2d.decayLen, ...
