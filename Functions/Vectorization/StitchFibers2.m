@@ -43,7 +43,7 @@ ims = RemoveShortFibers(ims);
 
 % 8. Calculate op2d and fiber length and width distributions
 waitbar(0.9,hwait,'Analyzing Structure...');
-ims = op2d_vec(ims);
+% ims = op2d_vec(ims);
 ims = op2d_fixed(ims);
 
 % ims = op2d_fa_fit(ims);
@@ -51,7 +51,7 @@ ims = calc_orient_dist(ims);
 ims = FiberLengths(ims,0);
 ims = FiberWidths(ims);
 ims = Persist_Len(ims);
-% ims = orcorr(ims);
+ims = orcorr(ims);
 
 save('last_result','ims')
 close(hwait)

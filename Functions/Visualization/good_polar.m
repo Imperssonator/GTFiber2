@@ -1,35 +1,22 @@
-function [hf, Fim] = ODist_plot(ims,figSave)
+function [hf, Fim] = good_polar(angles,n)
 
-% Produce the radar-style polar plot of the orientation distribution from
-% and ims structure that has had its ODist calculated with calc_orient_dist
-
-if exist('figSave','var')~=1
-    figSave=0;
-end
+% Produce a good-looking radar plot given bins and counts
 
 % Hard Coded Stuff
 % ___________________
-
-dirScale = 1; % what fraction of max bin should director segment length be
 axGray = 0.84; % how light should the radial/angular axes be
 outerGray = 0.4;
-lab180scale = 1.2;
+lab180scale = 1.5;
 % ___________________
 
-% Pull distribution and director orientation out of ims
-n = ims.ODist.n;
-centers_polar = ims.ODist.centers_polar;
-MeanOrient = ims.ODist.director;
 maxn = max(n);
 
 % Make polar plot with director
 hf=figure;
 ax1 = gca;
-polar(ax1, centers_polar, n, '-b');
+polar(ax1, angles, n, '-b');
 hold(ax1,'on')
 
-dirLen = dirScale*ax1.XLim(end);
-% p_avg = polar(ax1,[MeanOrient*pi/180, 0, MeanOrient*pi/180+pi],[dirLen, 0, dirLen],'-k');
 
 % Fix the axis labels
 pos180 = ax1.XTick(1) * lab180scale;
@@ -40,7 +27,7 @@ htext = findall(hf,'Type','text');
 %              find(cellfun(@(x) strcmp('180',x),{htext(:).String}),1);...
 %              find(cellfun(@(x) strcmp('270',x),{htext(:).String}),1)...
 %              ];
-keep_inds = [];  % At the moment I'm just sick of having angle legends
+keep_inds=[];
 
 for t = 1:length(htext)
     if not(ismember(t,keep_inds))
@@ -59,7 +46,6 @@ hlines = findall(hf,'Type','line');
 for i = 1:length(hlines)
 set(hlines(i),'LineWidth',1.5);
 end
-% p_avg.LineWidth = 2;
 
 % Draw outline darker
 ymax = [];
@@ -68,7 +54,7 @@ for i = 1:length(hlines)
         ymax = [ymax; [i, max(hlines(i).YData)]];
     end
 end
-[highy, outmax] = max(ymax(:,2));
+[~, outmax] = max(ymax(:,2));
 outline = ymax(outmax,1);
 
 % Fix line colors
@@ -78,22 +64,6 @@ set(hlines(outline),'Color',outerGray.*[1 1 1]);
 
 % Reposition and scale figure
 hf.Position = [600 300 400 400];
-
-F = getframe(hf);
-Fim = F.cdata;
-alpha = uint8(ones(size(Fim(:,:,1))).*255);
-alpha(Fim(:,:,1)==240)=0;
-
-if figSave
-    fig_file = [ims.figSavePath, '_OD', '.png'];
-    ensure_dir(fig_file);
-    imwrite(Fim,fig_file,'Alpha',alpha);
-    close(hf)
-end
-
-% text('Units', 'normalized', 'Position', [-0.09 0.16], ...
-%     'BackgroundColor', [1 1 1], ...
-%     'String', ['\itS\rm_{full} = ' num2str(ims.op2d.Sfull, 2)]);
 
 end
 

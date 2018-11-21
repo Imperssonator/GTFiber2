@@ -5,7 +5,7 @@ function ims = calc_orient_dist(ims)
 
 % Add fields to ims:
 
-angleStep = 5;  % 5 degree discretization
+angleStep = 2;  % 5 degree discretization
 stepNum = round(180/angleStep);
 angleStep = 180/stepNum;
 

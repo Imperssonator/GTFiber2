@@ -185,7 +185,7 @@ if isCircleArea
 end
 
 % val = sqrt((2*a-double(n)).^2+(2*b).^2)./double(n);
-val = 1/2*(2*(yd^2 + (xd^2-yd^2).*a./double(n) + 2*xd*yd.*b./double(n)) - 1);
+val = (2*(yd^2 + (xd^2-yd^2).*a./double(n) + 2*xd*yd.*b./double(n)) - 1);
 % ----------
 % val(n==0) = 0;
 % ydata(1) = mean(val(:));
@@ -256,7 +256,7 @@ for k = 2:procStepNum
     end
     
 %     val = sqrt((2*aa-nn).^2+(2*bb).^2)./nn;
-    val = 1/2*(2*(yd^2 + (xd^2-yd^2).*aa./double(nn) + 2*xd*yd.*bb./double(nn)) - 1);
+    val = (2*(yd^2 + (xd^2-yd^2).*aa./double(nn) + 2*xd*yd.*bb./double(nn)) - 1);
 
     % ----------
 %     val(nn==0) = 0;

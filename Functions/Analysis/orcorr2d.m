@@ -78,7 +78,17 @@ hh(:,:,2) = (hh(:,:,2) + rot90(hh(:,:,2),2)) ./ 2;
 hh(:,:,3) = X;
 hh(:,:,4) = Y;
 
-ims.OrCorr2D = hh;
+corrLen_x = fminsearch(@(b) sum((exp(-hh(numBins+1,numBins+1:end,3)./b) - ... Exponential decay
+                                 hh(numBins+1,numBins+1:end,2)).^2), ... Sum squared error
+                       ims.nmWid/5); % Guess 1/5 image width as decay length
+                   
+corrLen_y = fminsearch(@(b) sum((exp(-hh(numBins+1:end,numBins+1,4)./b) - ... Exponential decay
+                                 hh(numBins+1:end,numBins+1,2)).^2), ... Sum squared error
+                       ims.nmWid/5); % Guess 1/5 image width as decay length
+
+ims.OrCorr2D = struct('array', hh, ...
+                      'corrLen_x', corrLen_x, ...
+                      'corrLen_y', corrLen_y);
 
 close(hwait)
 

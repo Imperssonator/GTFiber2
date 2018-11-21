@@ -7,7 +7,7 @@ hf = figure;
 ax = axes('Parent',hf);
 hold(ax,'on')
 
-H = ims.OrCorr2D;
+H = ims.OrCorr2D.array;
 X = H(:,:,3)./1000;
 Y = H(:,:,4)./1000;
 C = H(:,:,2);
