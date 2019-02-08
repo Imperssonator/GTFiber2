@@ -56,7 +56,7 @@ for i = 1:N_rand
         % Compute rolling average of angle cosine
         hh(bi,bj,2)= hh(bi,bj,1)/(hh(bi,bj,1)+1)*hh(bi,bj,2)...
                   + 1/(hh(bi,bj,1)+1)...
-                    * cosd(2 * (AngList_rand(i)-AngList_rand(j)));        
+                    * cosd((AngList_rand(i)-AngList_rand(j)))^2;        
     end
 end
 

@@ -56,15 +56,16 @@ for i = 1:N-1
         % mag = |A||B|
         
         cos_theta = (vecList(1,i)*vecList(1,j)+vecList(2,i)*vecList(2,j))/mag;
-        if cos_theta>1
+        cos_theta_sq = cos_theta^2;
+        if cos_theta_sq>1
             % protect against non-real results
-            cos_theta=1;
-        elseif cos_theta<-1
-            cos_theta=-1;
+            cos_theta_sq=1;
+        elseif cos_theta_sq<0
+            cos_theta_sq=0;
         end
         hh(bi,bj,2)= hh(bi,bj,1)/(hh(bi,bj,1)+1)*hh(bi,bj,2)...
                   + 1/(hh(bi,bj,1)+1)...
-                    * cos(2*acos(cos_theta));
+                    * cos_theta_sq;
         
     end
 end
@@ -78,17 +79,17 @@ hh(:,:,2) = (hh(:,:,2) + rot90(hh(:,:,2),2)) ./ 2;
 hh(:,:,3) = X;
 hh(:,:,4) = Y;
 
-corrLen_x = fminsearch(@(b) sum((exp(-hh(numBins+1,numBins+1:end,3)./b) - ... Exponential decay
-                                 hh(numBins+1,numBins+1:end,2)).^2), ... Sum squared error
-                       ims.nmWid/5); % Guess 1/5 image width as decay length
-                   
-corrLen_y = fminsearch(@(b) sum((exp(-hh(numBins+1:end,numBins+1,4)./b) - ... Exponential decay
-                                 hh(numBins+1:end,numBins+1,2)).^2), ... Sum squared error
-                       ims.nmWid/5); % Guess 1/5 image width as decay length
+% corrLen_x = fminsearch(@(b) sum((exp(-hh(numBins+1,numBins+1:end,3)./b) - ... Exponential decay
+%                                  hh(numBins+1,numBins+1:end,2)).^2), ... Sum squared error
+%                        ims.nmWid/5); % Guess 1/5 image width as decay length
+%                    
+% corrLen_y = fminsearch(@(b) sum((exp(-hh(numBins+1:end,numBins+1,4)./b) - ... Exponential decay
+%                                  hh(numBins+1:end,numBins+1,2)).^2), ... Sum squared error
+%                        ims.nmWid/5); % Guess 1/5 image width as decay length
 
-ims.OrCorr2D = struct('array', hh, ...
-                      'corrLen_x', corrLen_x, ...
-                      'corrLen_y', corrLen_y);
+ims.OrCorr2D = struct('array', hh); %, ...
+%                       'corrLen_x', corrLen_x, ...
+%                       'corrLen_y', corrLen_y);
 
 close(hwait)
 
