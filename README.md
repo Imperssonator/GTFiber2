@@ -1,5 +1,5 @@
 # GTFiber 2
-This is the public-facing repository for GTFiber 2.0. GTFiber is an open source program for automated quantitative analysis of images of fibrillar microstructures.
+This is the public-facing repository for GTFiber 2.0. GTFiber is an open source program for automated quantitative analysis of images of fibrillar microstructures. Automatically extract fiber length, width, and orientation distributions, as well as orientational order parameters.
 
 Please cite [the paper](https://pubs.acs.org/doi/abs/10.1021/acsami.7b10510) if you find the software useful.
 
