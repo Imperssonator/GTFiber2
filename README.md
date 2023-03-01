@@ -3,7 +3,7 @@ This is the public-facing repository for GTFiber 2.0. GTFiber is an open source 
 
 Please cite [the paper](https://pubs.acs.org/doi/abs/10.1021/acsami.7b10510) if you find the software useful.
 
-![Imgur](http://i.imgur.com/GDL2HQP.png)
+![demo](demo.gif)
 
 See [GTFiber 1.1](https://github.com/Imperssonator/GTFiber-Mac) for the old version that did not vectorize fibers (faster but less rigorous analysis)
 
