@@ -1,7 +1,7 @@
 # GTFiber 2
 This is the public-facing repository for GTFiber 2.0. GTFiber is an open source program for automated quantitative analysis of images of fibrillar microstructures.
 
-![Imgur](http://i.imgur.com/GDL2HQP.png)
+![demo gif](demo.gif)
 
 See [GTFiber 1.1](https://github.com/Imperssonator/GTFiber-Mac) for the old version that did not vectorize fibers (faster but less rigorous analysis)
 
